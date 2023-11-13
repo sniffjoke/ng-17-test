@@ -8,11 +8,24 @@ import {HttpClientModule} from "@angular/common/http";
 import {ProductsService} from "./services/products.service";
 import {Observable, tap} from "rxjs";
 import {GlobalErrorComponent} from "./components/global-error/global-error.component";
+import {FormsModule} from "@angular/forms";
+import {FilterProductsPipe} from "./pipes/filter-products.pipe";
+import {ModalComponent} from "./components/modal/modal.component";
+import {CreateProductComponent} from "./components/create-product/create-product.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ProductComponent, HttpClientModule, GlobalErrorComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    ProductComponent,
+    HttpClientModule,
+    GlobalErrorComponent,
+    FormsModule,
+    FilterProductsPipe,
+    ModalComponent,
+    CreateProductComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -24,8 +37,10 @@ export class AppComponent implements OnInit {
   loading = false
 
   products$: Observable<IProduct[]>
+  term = ''
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService) {
+  }
 
   ngOnInit(): void {
     this.loading = true
@@ -37,6 +52,5 @@ export class AppComponent implements OnInit {
     //   this.loading = false
     // })
   }
-
 
 }
